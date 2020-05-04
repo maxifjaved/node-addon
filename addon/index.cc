@@ -1,19 +1,15 @@
+//Simple Hello Addon
 #include <nan.h>
-using namespace v8;
 
-void Method(const Nan::FunctionCallbackInfo<Value> &info)
+void Handler(const Nan::FunctionCallbackInfo<v8::Value> &info)
 {
- info.GetReturnValue().Set(Nan::New("world").ToLocalChecked());
+ info.GetReturnValue().Set(Nan::New("Word").ToLocalChecked());
 }
-
-void Init(Local<Object> exports)
+void Init(v8::Local<v8::Object> exports)
 {
- Local<Context> context = exports->CreationContext();
+ v8::Local<v8::Context> context = exports->CreationContext();
  exports->Set(context,
               Nan::New("hello").ToLocalChecked(),
-              Nan::New<FunctionTemplate>(Method)
-                  ->GetFunction(context)
-                  .ToLocalChecked());
+              Nan::New<v8::FunctionTemplate>(Handler)->GetFunction(context).ToLocalChecked());
 }
-
-NODE_MODULE(hello, Init)
+NODE_MODULE(addon, Init)
