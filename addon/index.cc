@@ -1,4 +1,6 @@
 //Simple Hello Addon
+//module.exports.hello = function() { return 'world'; };
+
 #include <nan.h>
 
 void Handler(const Nan::FunctionCallbackInfo<v8::Value> &info)
