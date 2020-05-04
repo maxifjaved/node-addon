@@ -1,34 +1,25 @@
-//Addon with function argument
+//Addon With Callback
 
 #include <nan.h>
-void Sum(const Nan::FunctionCallbackInfo<v8::Value> &info)
+
+using v8::Function;
+using v8::Local;
+using v8::Object;
+using v8::Value;
+
+void RunCallback(const Nan::FunctionCallbackInfo<Value> &info)
 {
- v8::Local<v8::Context> context = info.GetIsolate()->GetCurrentContext();
- if (info.Length() < 2)
- {
-  Nan::ThrowTypeError("Need two number for Sum");
-  return;
- }
+ Local<Function> callback = info[0].As<Function>();
 
- if (!info[0]->IsNumber() || !info[1]->IsNumber())
- {
-  Nan::ThrowTypeError("Not valid numbers");
-  return;
- }
+ const unsigned argc = 1;
+ Local<Value> argv[argc] = {Nan::New("Random Text").ToLocalChecked()};
 
- double arg0 = info[0]->NumberValue(context).FromJust();
- double arg1 = info[1]->NumberValue(context).FromJust();
-
- v8::Local<v8::Number> result = Nan::New(arg0 + arg1);
- info.GetReturnValue().Set(result);
+ Nan::AsyncResource resource("nan:makeCallback");
+ resource.runInAsyncScope(Nan::GetCurrentContext()->Global(), callback, argc, argv);
 }
-void Init(v8::Local<v8::Object> exports)
+void Init(Local<Object> exports, Local<Object> module)
 {
- v8::Local<v8::Context> context = exports->CreationContext();
- exports->Set(context,
-              Nan::New("handler").ToLocalChecked(),
-              Nan::New<v8::FunctionTemplate>(Sum)
-                  ->GetFunction(context)
-                  .ToLocalChecked());
+ Nan::SetMethod(module, "exports", RunCallback);
 }
+
 NODE_MODULE(addon, Init)
