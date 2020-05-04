@@ -2,7 +2,7 @@ var addon = require('bindings')('handler');
 
 try {
 	console.log(
-		addon((arg) => {
+		addon.handler(12, 15, (arg) => {
 			console.log('arg', arg);
 		})
 	);
