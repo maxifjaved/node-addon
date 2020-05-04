@@ -1,0 +1,26 @@
+{
+	"name": "node-addon",
+	"version": "1.0.0",
+	"description": "Node.js C++ Addons Hands-On Practice.",
+	"main": "src/index.js",
+	"private": true,
+	"author": "Muhammad Asif Javed <axif.javed@gmail.com>",
+	"license": "MIT",
+	"gypfile": true,
+	"dependencies": {
+		"bindings": "^1.5.0",
+		"nan": "^2.14.1"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.9.6",
+		"@babel/node": "^7.8.7",
+		"@babel/preset-env": "^7.9.6",
+		"nodemon": "^2.0.3",
+		"rimraf": "^3.0.2"
+	},
+	"scripts": {
+		"start": "nodemon --watch . --exec babel-node src --source-maps",
+		"build": "rimraf build && babel src -D --out-dir build",
+		"prod": "node build"
+	}
+}
