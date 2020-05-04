@@ -8,7 +8,7 @@
 	"license": "MIT",
 	"gypfile": true,
 	"dependencies": {
-		"bindings": "^1.5.0",
+		"bindings": "~1.2.0",
 		"nan": "^2.14.1"
 	},
 	"devDependencies": {
@@ -20,7 +20,7 @@
 	},
 	"scripts": {
 		"start": "nodemon --watch . --exec babel-node src --source-maps",
-		"build": "rimraf build && babel src -D --out-dir build",
-		"prod": "node build"
+		"build": "rimraf dist && babel src -D --out-dir dist",
+		"prod": "node dist"
 	}
 }
