@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "hello",
+      "target_name": "handler",
       "sources": [ "addon/index.cc" ],
       "include_dirs": [
         "<!(node -e \"require('nan')\")"

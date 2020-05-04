@@ -1,3 +1,7 @@
-var addon = require('bindings')('hello');
+var addon = require('bindings')('handler');
 
-console.log(addon.hello()); // 'world'
+try {
+	console.log(addon.handler(1, 10));
+} catch (error) {
+	console.log('error', error.toString());
+}
